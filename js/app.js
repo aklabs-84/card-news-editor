@@ -9,12 +9,12 @@ let deck = { style: 'b', brand: 'AKLABS', cards: [] };
 let sel = 0;
 
 /* ---------- 저장 / 알림 ---------- */
-function toast(msg) {
+function toast(msg, ms = 2200) {
   const t = $('#toast');
   t.textContent = msg;
   t.classList.add('on');
   clearTimeout(toast.t);
-  toast.t = setTimeout(() => t.classList.remove('on'), 2200);
+  toast.t = setTimeout(() => t.classList.remove('on'), ms);
 }
 const serialize = () => JSON.stringify({ deck, sel });
 function persist() {
@@ -621,7 +621,13 @@ $('#file-deck').addEventListener('change', async (ev) => {
     const d = JSON.parse(await f.text());
     if (!Array.isArray(d.cards)) throw 0;
     d.style = d.style === 'a' ? 'a' : 'b';
-    setDeck(d, 'deck.json을 불러왔어요');
+    const srcs = d.cards.flatMap((c) => [c?.image, ...(c?.images || []).map((im) => im?.src)]).filter(Boolean);
+    const missing = srcs.filter((s) => !/^(data:|blob:|https?:)/.test(s)).length;
+    if (missing) {
+      const how = 'showDirectoryPicker' in window ? "'폴더 열기'" : "Chrome이나 Edge에서 '폴더 열기'";
+      setDeck(d);
+      toast(`deck.json을 불러왔어요. 이미지 ${missing}장은 파일에 없어서 안 보여요. 이미지가 있는 폴더는 ${how}로 열어 주세요`, 7000);
+    } else setDeck(d, 'deck.json을 불러왔어요');
   } catch { toast('deck.json 형식이 아니에요'); }
 });
 function download(href, name) {
