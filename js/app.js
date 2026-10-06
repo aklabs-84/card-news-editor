@@ -653,7 +653,7 @@ const writeFileH = async (dir, path, data) => {
   await w.close();
 };
 const imagePaths = (d) => d.cards.flatMap((c) => [c.image, ...(c.images || []).map((i) => i.src)]).filter((s) => s && !/^(data:|blob:|https?:)/.test(s));
-if ('showDirectoryPicker' in window) { $('#btn-folder').hidden = false; $('#btn-fsave').hidden = false; }
+if ('showDirectoryPicker' in window) $('#btn-folder').hidden = false;
 
 $('#btn-folder').onclick = async () => {
   try {
@@ -669,6 +669,7 @@ $('#btn-folder').onclick = async () => {
     }
     dirH = dir;
     setImageResolver((p) => blobs.get(p));
+    $('#btn-fsave').hidden = false;
     $('#btn-fsave').disabled = false;
     setDeck(d, `폴더를 열었어요: ${dir.name}`);
   } catch (err) {
@@ -805,3 +806,11 @@ $('#btn-zip').onclick = async () => {
   select(sel, false);
   snap(true);
 })();
+
+/* ---------- 상단 메뉴 닫기 ---------- */
+const menus = [...document.querySelectorAll('.bar .menu')];
+const closeMenus = (except) => menus.forEach((m) => { if (m !== except) m.open = false; });
+menus.forEach((m) => m.addEventListener('toggle', () => { if (m.open) closeMenus(m); }));
+document.addEventListener('pointerdown', (e) => { if (!e.target.closest('.menu')) closeMenus(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenus(); });
+menus.forEach((m) => m.querySelector('.pop').addEventListener('click', (e) => { if (e.target.closest('button')) m.open = false; }));

@@ -14,19 +14,30 @@
     <button data-style="a" role="radio">스타일 A · 클린</button>
   </div>
   <div class="seg" aria-label="되돌리기">
-    <button id="btn-undo" title="되돌리기 (Ctrl/⌘+Z)" aria-label="되돌리기">↶ 되돌리기</button>
-    <button id="btn-redo" title="다시 실행 (Ctrl/⌘+Shift+Z)" aria-label="다시 실행">↷ 다시</button>
+    <button id="btn-undo" class="ico" title="되돌리기 (Ctrl/⌘+Z)" aria-label="되돌리기">↶</button>
+    <button id="btn-redo" class="ico" title="다시 실행 (Ctrl/⌘+Shift+Z)" aria-label="다시 실행">↷</button>
   </div>
   <span class="sp"></span>
-  <button id="btn-new">새 덱</button>
-  <button id="btn-sample">샘플 불러오기</button>
-  <button id="btn-import">deck.json 불러오기</button>
-  <button id="btn-folder" hidden title="deck.json이 있는 폴더를 열어요 (Chrome·Edge)">폴더 열기</button>
+  <details class="menu">
+    <summary>파일</summary>
+    <div class="pop">
+      <button id="btn-new">새 덱</button>
+      <button id="btn-sample">샘플 불러오기</button>
+      <button id="btn-import">deck.json 불러오기</button>
+      <button id="btn-folder" hidden title="deck.json이 있는 폴더를 열어요 (Chrome·Edge)">폴더 열기</button>
+      <hr>
+      <button id="btn-export">deck.json 저장</button>
+    </div>
+  </details>
   <button id="btn-fsave" class="primary" hidden disabled title="deck.json과 out/ PNG를 그 폴더에 저장해요">폴더에 저장</button>
-  <button id="btn-export">deck.json 저장</button>
-  <button id="btn-png" class="primary">이 카드 PNG 저장</button>
-  <button id="btn-all" class="primary">전체 PNG 저장</button>
-  <button id="btn-zip" class="primary">전체 zip 저장</button>
+  <details class="menu primary">
+    <summary>내보내기</summary>
+    <div class="pop">
+      <button id="btn-png">이 카드 PNG 저장</button>
+      <button id="btn-all">전체 PNG 저장</button>
+      <button id="btn-zip">전체 zip 저장</button>
+    </div>
+  </details>
   <input id="file-deck" type="file" accept=".json,application/json" hidden>
   <input id="file-img" type="file" accept="image/*" hidden>
 </header>
