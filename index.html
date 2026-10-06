@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>카드뉴스 편집기</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="bar">
+  <strong class="logo">🦈 카드뉴스 편집기</strong>
+  <div class="seg" role="radiogroup" aria-label="카드 스타일">
+    <button data-style="b" role="radio">스타일 B · 캐릭터</button>
+    <button data-style="a" role="radio">스타일 A · 클린</button>
+  </div>
+  <div class="seg" aria-label="되돌리기">
+    <button id="btn-undo" title="되돌리기 (Ctrl/⌘+Z)" aria-label="되돌리기">↶ 되돌리기</button>
+    <button id="btn-redo" title="다시 실행 (Ctrl/⌘+Shift+Z)" aria-label="다시 실행">↷ 다시</button>
+  </div>
+  <span class="sp"></span>
+  <button id="btn-new">새 덱</button>
+  <button id="btn-sample">샘플 불러오기</button>
+  <button id="btn-import">deck.json 불러오기</button>
+  <button id="btn-folder" hidden title="deck.json이 있는 폴더를 열어요 (Chrome·Edge)">폴더 열기</button>
+  <button id="btn-fsave" class="primary" hidden disabled title="deck.json과 out/ PNG를 그 폴더에 저장해요">폴더에 저장</button>
+  <button id="btn-export">deck.json 저장</button>
+  <button id="btn-png" class="primary">이 카드 PNG 저장</button>
+  <button id="btn-all" class="primary">전체 PNG 저장</button>
+  <button id="btn-zip" class="primary">전체 zip 저장</button>
+  <input id="file-deck" type="file" accept=".json,application/json" hidden>
+  <input id="file-img" type="file" accept="image/*" hidden>
+</header>
+<main class="app">
+  <aside class="list" id="list" aria-label="카드 목록"></aside>
+  <section class="stage">
+    <div class="viewport" id="viewport"><iframe id="preview" title="카드 미리보기"></iframe></div>
+    <div id="selbox" hidden>
+      <i class="h" data-h="nw"></i><i class="h" data-h="ne"></i><i class="h" data-h="sw"></i><i class="h" data-h="se"></i>
+      <i class="rot" data-h="rot" title="돌리기 (Shift: 15° 단위)"></i>
+    </div>
+    <p class="hint">눌러서 고르기 · 끌어서 옮기기 · 모서리=크기 · 위쪽 동그라미=회전 · 글자는 더블클릭해서 고치기 · 방향키로 1px(Shift 10px) · Delete로 지우기 (카드 밖으로는 안 나가요)</p>
+  </section>
+  <aside class="panel" id="panel" aria-label="편집 패널"></aside>
+</main>
+<div id="toast" role="status"></div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

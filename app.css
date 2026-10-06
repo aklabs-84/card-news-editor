@@ -1,0 +1,84 @@
+:root {
+  --bg: #f4f6fa; --card: #fff; --ink: #191f28; --sub: #6b7684; --line: #e5e8eb; --accent: #3182f6;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14171c; --card: #1d2229; --ink: #f2f4f6; --sub: #9aa4b2; --line: #2d343d; }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; display: flex; flex-direction: column; }
+button { font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+input, textarea, select { font: inherit; color: inherit; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 6px 8px; width: 100%; }
+textarea { resize: vertical; min-height: 56px; }
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px 16px; background: var(--card); border-bottom: 1px solid var(--line); }
+.logo { font-size: 16px; margin-right: 8px; }
+.sp { flex: 1; }
+.seg { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg button { border: 0; border-radius: 0; }
+.seg button[aria-checked='true'] { background: var(--accent); color: #fff; }
+
+.app { flex: 1; min-height: 0; display: grid; grid-template-columns: 150px minmax(0, 1fr) 340px; }
+.list, .panel { overflow: auto; padding: 12px; background: var(--card); }
+.list { border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.panel { border-left: 1px solid var(--line); }
+
+.thumb { width: 108px; height: 135px; position: relative; border: 2px solid var(--line); border-radius: 8px; overflow: hidden; cursor: pointer; flex: none; background: #fff; padding: 0; }
+.thumb[aria-current='true'] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.thumb iframe { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; border: 0; transform: scale(.1); transform-origin: 0 0; pointer-events: none; }
+.thumb b { position: absolute; left: 4px; bottom: 2px; font-size: 11px; background: rgba(0,0,0,.6); color: #fff; padding: 0 5px; border-radius: 6px; }
+.mini { display: flex; gap: 4px; }
+.mini button { padding: 2px 8px; font-size: 12px; }
+
+.stage { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 0; padding: 12px; gap: 6px; }
+.viewport { position: relative; flex: none; box-shadow: 0 10px 40px rgba(0,0,0,.18); border-radius: 4px; overflow: hidden; background: #fff; }
+.viewport iframe { position: absolute; left: 0; top: 0; width: 1080px; height: 1350px; border: 0; transform-origin: 0 0; }
+.hint { margin: 0; color: var(--sub); font-size: 12px; }
+
+.panel h3 { margin: 16px 0 6px; font-size: 13px; color: var(--sub); }
+.panel h3:first-child { margin-top: 0; }
+.panel label { display: block; font-size: 12px; color: var(--sub); margin: 8px 0 2px; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.chars { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+.chars button { padding: 2px; aspect-ratio: 1; }
+.chars button[aria-pressed='true'] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.chars img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.item { border: 1px solid var(--line); border-radius: 8px; padding: 8px; margin-bottom: 8px; position: relative; }
+.item .x { position: absolute; right: 6px; top: 6px; padding: 0 8px; }
+.item input + input, .item input + textarea { margin-top: 4px; }
+.imgbox { display: flex; gap: 8px; align-items: center; }
+.imgbox img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); }
+.range { display: grid; grid-template-columns: 52px 1fr 40px; align-items: center; gap: 6px; font-size: 12px; color: var(--sub); }
+.range input { padding: 0; }
+
+#toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .2s; }
+#toast.on { opacity: 1; }
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; grid-template-rows: auto 60vh auto; overflow: auto; }
+  .list { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+}
+
+button:disabled { opacity: .4; cursor: default; }
+button:disabled:hover { border-color: var(--line); }
+.toolrow { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 4px; }
+.toolrow button { padding: 4px 8px; font-size: 12px; }
+.toolrow select { width: auto; padding: 4px; font-size: 12px; }
+.range input[type=number] { padding: 2px 4px; }
+.pos { display: grid; grid-template-columns: 52px 1fr 1fr; gap: 6px; align-items: center; font-size: 12px; color: var(--sub); margin-bottom: 4px; }
+
+/* 카드 위 선택 상자 */
+#selbox { position: absolute; border: 2px solid var(--accent); pointer-events: none; z-index: 5; }
+#selbox[hidden] { display: none; }
+#selbox .h { position: absolute; width: 12px; height: 12px; background: #fff; border: 2px solid var(--accent); border-radius: 3px; pointer-events: auto; }
+#selbox [data-h=nw] { left: -7px; top: -7px; cursor: nwse-resize; }
+#selbox [data-h=ne] { right: -7px; top: -7px; cursor: nesw-resize; }
+#selbox [data-h=sw] { left: -7px; bottom: -7px; cursor: nesw-resize; }
+#selbox [data-h=se] { right: -7px; bottom: -7px; cursor: nwse-resize; }
+#selbox .rot { position: absolute; left: 50%; top: -30px; margin-left: -7px; width: 14px; height: 14px; background: var(--accent); border: 2px solid #fff; border-radius: 50%; pointer-events: auto; cursor: grab; box-shadow: 0 0 0 1px var(--accent); }
+#selbox .rot::after { content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: 16px; margin-left: -1px; background: var(--accent); }
+
+.szrow { display: grid; grid-template-columns: 52px 90px 20px; gap: 6px; align-items: center; font-size: 12px; color: var(--sub); margin-bottom: 4px; }
